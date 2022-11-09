@@ -31,7 +31,7 @@ def functioncall(user):                 # Routing function
                 n = int(input("Enter the value for n: "))   # Getting the value of n from the user to feed into the factorial power series function
                 fc = facto_power_series(n)                  # Calling the factorial power series function and storing the result in a variable
                 output(fc)                                  # Displaying the result of the factorial power series function
-            except Exception as e:      # Exception handling for any other exception
+            except Exception as e:      # Exception handling for any exception
                 print(f"\nError: {e}")
         case '4':
             check_password()            # Calling the check password function if user chose the fourth option
@@ -85,7 +85,7 @@ def isFermat():                         # Function to check if Fermat's last the
             print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
         else:
             print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
-    except Exception as e:              # Exception handling for any other exception
+    except Exception as e:              # Exception handling for any exception
             print(f"\nError: {e}")  
 
 def facto_power_series(n : float) -> float:                 # Function to calculate the factorial power series

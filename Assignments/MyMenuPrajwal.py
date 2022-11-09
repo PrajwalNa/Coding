@@ -10,6 +10,7 @@ Menu Based Program for carrying out various functions
 
 import function_tools as ft             # Importing the function_tools module as ft to use the functions defined in it
 import re                               # Importing regex module
+import sys                              # Importing sys module to use the exit function
 
 def main():                             # Main function
     try:
@@ -17,7 +18,7 @@ def main():                             # Main function
             usr_choice = getinput()     # Calling the input function to get the user choice from the menu
             functioncall(usr_choice)    # Calling the routing function to direct the program to the the user's preference from the menu
     except KeyboardInterrupt:           # Exception handling for keyboard interrupt
-        print(f"\n{'*'*20}Program Closing{'*'*20}")
+        sys.exit(f"\n{'-'*20}Program Closing{'-'*20}")      # Exiting the program
 
 def functioncall(user):                 # Routing function
     match user:                         # Matching the user input with the menu options
@@ -26,14 +27,16 @@ def functioncall(user):                 # Routing function
         case '2':
             isFermat()                  # Calling the Fermat function if user chose the second option
         case '3':
-            n = int(input("Enter the value for n: "))       # Getting the value of n from the user to feed into the factorial power series function
-            fc = facto_power_series(n)                      # Calling the factorial power series function and storing the result in a variable
-            output(fc)                                      # Displaying the result of the factorial power series function
+            try:
+                n = int(input("Enter the value for n: "))   # Getting the value of n from the user to feed into the factorial power series function
+                fc = facto_power_series(n)                  # Calling the factorial power series function and storing the result in a variable
+                output(fc)                                  # Displaying the result of the factorial power series function
+            except Exception as e:      # Exception handling for any other exception
+                print(f"\nError: {e}")
         case '4':
             check_password()            # Calling the check password function if user chose the fourth option
         case '5':
-            print("\nThank you for using my menu program!")
-            exit()                      # Exiting the program using the in-built exit function if user chose the fifth option
+            sys.exit("\nThank you for using my menu program!")                              # Exiting the program using the in-built exit function if user chose the fifth option
         case _:                         # Default case if user enters an invalid input
             print("Invalid choice")
 

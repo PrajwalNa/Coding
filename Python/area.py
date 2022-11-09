@@ -1,6 +1,7 @@
 """
 Dev: Prajwal Nautiyal
 Last Update: 8 November 2022
+Simple area calculator for a Rectangle/Square with a bonus of circle
 """
 
 import math

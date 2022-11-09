@@ -82,10 +82,8 @@ def isFermat():                         # Function to check if Fermat's last the
             print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
         else:
             print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
-    except ValueError:                  # Exception handling for value error
-        print(ValueError)
-    except TypeError:                   # Exception handling for type error
-        print(TypeError)        
+    except Exception as e:              # Exception handling for any other exception
+            print(f"\nError: {e}")  
 
 def facto_power_series(n : float) -> float:                 # Function to calculate the factorial power series
     series_sum = ft.series(n)           # Using the series function from the function_tools.py file to calculate the factorial power series

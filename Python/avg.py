@@ -2,7 +2,7 @@
 Dev: Prajwal Nautiyal
 Last Update: 8 November 2022
 A function to test modularisation in python, 
-it calculates the average of two numbers and the sum from first number to the second number.
+it calculates the average of two numbers and the sum of numbers from first number to the second number.
 """
 
 import func         # module call to use function from another module

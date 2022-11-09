@@ -70,11 +70,11 @@ class Abc {                                                         // Declaring
                 ar = Abc.input();                                   // Calling the input function and storing the returned array in the array 'ar'
                 float out = Abc.calc(ar[0], ar[1], ar[2]);          // Calling the calc function and storing the returned value in the variable 'out'
                 Abc.output(ar[0], ar[1], ar[2], out);               // Calling the output function
-                System.out.println("Exit: Ctrl+C.");             // Printing the message to exit the program
+                System.out.println("Exit: Ctrl+C.");                // Printing the message to exit the program
             }
         } 
         catch (Exception keyBoardException) {                       // This catch block will execute if the keyboard interrupt exception is thrown
-            System.out.println("Program Closing.");              //Exit message
+            System.out.println("Program Closing.");                 //Exit message
         }
     }
 }

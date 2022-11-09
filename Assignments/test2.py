@@ -20,7 +20,7 @@ day = datelist2[1]
 i = 0# Cpunter variable
 month_list = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 while i < 12:# while loop to check for the month assignment
-    if month in month_list[i]:
+    if month == month_list[i]:
         month = str(i + 1)# Since i is the index of the list and list starts at 0
     i = i + 1
 

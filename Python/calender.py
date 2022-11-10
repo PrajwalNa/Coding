@@ -25,8 +25,7 @@ def datein():                               # User Input function to given instr
         return daymonyr                     # Returning the list
     except IndexError:
         print("!!Invalid Entry!!\nCtrl+C To Exit.")
-        return ['00', '00', '0000']         # Returning a list with invalid values
-        sleep(2.0)                          # Waiting for 2 seconds before restarting the program
+        return ['00', '00', '0000']         # Returning a list with invalid value
 
 def name(month):                            # Function to convert the month number into month name
     match month:

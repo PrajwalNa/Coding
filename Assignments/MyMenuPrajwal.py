@@ -81,7 +81,7 @@ def isFermat():                         # Function to check if Fermat's last the
         b = int(input("Enter b: "))
         c = int(input("Enter c: "))
         n = int(input("Enter n: "))
-        if a<=0 or b<=0 or c<=0 or n<=0:                # Checking if any of the values are less than or equal to zero
+        if a<=0 or b<=0 or c<=0 or n<=0:                    # Checking if any of the values are less than or equal to zero
             print("Please enter positive values only!")
         else:    
             if n > 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):                        # Using the power function from the function_tools.py file to check if the theorem is true or not

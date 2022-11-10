@@ -21,9 +21,9 @@ def main():
 
 def inp():
     # using argparse to take the input from the user
-    parser = argparse.ArgumentParser(description="A basic calculator program.")
+    parser = argparse.ArgumentParser(description="A basic calculator program. The available operators are +, -, *, /, **, %")
     parser.add_argument("-n", "--num", type = float, dest = "numbers", nargs = 2, help = "Argument to store enter two numbers", required = True)
-    parser.add_argument("-o", "--operator", type = str, dest = "operator", help = "Argument to store the operator", required = True)
+    parser.add_argument("-o", "--operator", type = str, dest = "operator", nargs = 1, help = "Argument to store the operator", required = True)
     args = parser.parse_args()      # Parsing the arguments
     a, b = args.numbers             # Storing the numbers in a and b
     ops = args.operator             # Storing the operator in ops
@@ -39,6 +39,10 @@ def cal(num1 : float, num2 : float, op : str) -> float:             # Defining t
             val = num1 * num2
         case '/':
             val = num1 / num2
+        case '**':
+            val = num1 ** num2
+        case '%':
+            val = num1 % num2
         case _:
             val = 0.0
     return val

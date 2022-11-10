@@ -1,32 +1,39 @@
 """
 Dev: Prajwal Nautiyal
-Last Update: 8 November 2022
+Last Update: 9 November 2022
 A basic calculator program.
+!! This program is only meant to be run in the terminal !!
 """
 
-from func import ent                # Importing the input function from func.py
+import argparse                     # Importing the argparse module for taking the input from the user
 import timeit as ti                 # Importing the timeit module to calculate the runtime of the program
 
 def main():
-    start = ti.default_timer()                                                                  # Starting the timer for the program
-    try:                                                                    # Try block to catch the KeyboardInterrupt
-        while True:                                                         # Infinite loop
-            num = inp()                                                     # Calling the input function, stores the input in a tuple
-            calT_start = ti.default_timer()                                 # Starting the timer for the calculation
-            result = cal(num[0], num[1], num[2])                            # Calling the calculation function
-            prnt(num[0], num[1], num[2], result)                            # Calling the output function
-            calT_stop = ti.default_timer()                                  # Stopping the timer for the calculation
-            print(f"Calculation Time: {calT_stop - calT_start} seconds")    # Printing the calculation time
-    except KeyboardInterrupt:
-        stop = ti.default_timer()                                                               # Stopping the timer for the program
-        print(f"\n{'*'*20} Program Closed {'*'*20}\nTotal Runtime: {stop - start} seconds")     # Printing the total runtime of the program
+    start = ti.default_timer()                                      # Starting the timer for the program                                                        # Infinite loop
+    num = inp()                                                     # Calling the input function, stores the input in a tuple
+    calT_start = ti.default_timer()                                 # Starting the timer for the calculation
+    result = cal(num[0], num[1], num[2])                            # Calling the calculation function
+    prnt(num[0], num[1], num[2], result)                            # Calling the output function
+    calT_stop = ti.default_timer()                                  # Stopping the timer for the calculation
+    print(f"Calculation Time: {calT_stop - calT_start} seconds")    # Printing the calculation time
+    stop = ti.default_timer()                                       # Stopping the timer for the program
+    print(f"Total Runtime: {stop - start} seconds")                 # Printing the total runtime of the program
 
 def inp():
-    a, b = ent()                    # Using the input function from func.py to take input of two numbers from the user
-    ops = input("Choose one operation: ['+', '-', '*', '/'] ")              # Taking input of the operation to be performed
-    return a, b, ops
+    try:
+        # using argparse to take the input from the user
+        parser = argparse.ArgumentParser(description="A basic calculator program.")
+        parser.add_argument("-n", "--num", type = float, dest = "numbers", nargs = 2, help = "Argument to store enter two numbers", required = True)
+        parser.add_argument("-o", "--operator", type = str, dest = "operator", help = "Argument to store the operator", required = True)
+        args = parser.parse_args()  # Parsing the arguments
+        a, b = args.numbers         # Storing the numbers in a and b
+        ops = args.operator         # Storing the operator in ops
+        return a, b, ops
+    except Exception as e:
+        print(e)
+        return 0, 0, '0'
 
-def cal(num1:float, num2:float, op:str) -> float:                           # Defining the calculation function, type casting is used; takes two numbers and an operator as argument
+def cal(num1 : float, num2 : float, op : str) -> float:             # Defining the calculation function, type casting is used; takes two numbers and an operator as argument
     match op:                       # Using the match statement to match the operator
         case '+':
             val = num1 + num2

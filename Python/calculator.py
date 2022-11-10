@@ -20,18 +20,14 @@ def main():
     print(f"Total Runtime: {stop - start} seconds")                 # Printing the total runtime of the program
 
 def inp():
-    try:
-        # using argparse to take the input from the user
-        parser = argparse.ArgumentParser(description="A basic calculator program.")
-        parser.add_argument("-n", "--num", type = float, dest = "numbers", nargs = 2, help = "Argument to store enter two numbers", required = True)
-        parser.add_argument("-o", "--operator", type = str, dest = "operator", help = "Argument to store the operator", required = True)
-        args = parser.parse_args()  # Parsing the arguments
-        a, b = args.numbers         # Storing the numbers in a and b
-        ops = args.operator         # Storing the operator in ops
-        return a, b, ops
-    except Exception as e:
-        print(e)
-        return 0, 0, '0'
+    # using argparse to take the input from the user
+    parser = argparse.ArgumentParser(description="A basic calculator program.")
+    parser.add_argument("-n", "--num", type = float, dest = "numbers", nargs = 2, help = "Argument to store enter two numbers", required = True)
+    parser.add_argument("-o", "--operator", type = str, dest = "operator", help = "Argument to store the operator", required = True)
+    args = parser.parse_args()      # Parsing the arguments
+    a, b = args.numbers             # Storing the numbers in a and b
+    ops = args.operator             # Storing the operator in ops
+    return a, b, ops
 
 def cal(num1 : float, num2 : float, op : str) -> float:             # Defining the calculation function, type casting is used; takes two numbers and an operator as argument
     match op:                       # Using the match statement to match the operator

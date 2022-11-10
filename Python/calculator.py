@@ -11,13 +11,16 @@ import timeit as ti                 # Importing the timeit module to calculate t
 def main():
     start = ti.default_timer()                                      # Starting the timer for the program                                                        # Infinite loop
     num = inp()                                                     # Calling the input function, stores the input in a tuple
-    calT_start = ti.default_timer()                                 # Starting the timer for the calculation
-    result = cal(num[0], num[1], num[2])                                # Calling the calculation function
-    prnt(num[0], num[1], num[2], result)                                # Calling the output function
-    calT_stop = ti.default_timer()                                  # Stopping the timer for the calculation
-    print(f"Calculation Time: {(calT_stop - calT_start):.4f} seconds")    # Printing the calculation time
+    try:
+        calT_start = ti.default_timer()                                     # Starting the timer for the calculation
+        result = cal(num[0], num[1], num[2])                                # Calling the calculation function
+        prnt(num[0], num[1], num[2], result)                                # Calling the output function
+        calT_stop = ti.default_timer()                                      # Stopping the timer for the calculation
+        print(f"Calculation Time: {(calT_stop - calT_start):.4f} seconds")  # Printing the calculation time
+    except Exception as e:                                                  # Exception handling
+        print(f"Error: {e}")
     stop = ti.default_timer()                                       # Stopping the timer for the program
-    print(f"Total Runtime: {(stop - start)} seconds")                 # Printing the total runtime of the program
+    print(f"Total Runtime: {(stop - start):.4f} seconds")           # Printing the total runtime of the program
 
 def inp():
     # using argparse to take the input from the user

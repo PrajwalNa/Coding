@@ -81,10 +81,15 @@ def isFermat():                         # Function to check if Fermat's last the
         b = int(input("Enter b: "))
         c = int(input("Enter c: "))
         n = int(input("Enter n: "))
-        if n > 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):                        # Using the power function from the function_tools.py file to check if the theorem is true or not
-            print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
-        else:
-            print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
+        if a<=0 or b<=0 or c<=0 or n<=0:                # Checking if any of the values are less than or equal to zero
+            print("Please enter positive values only!")
+        else:    
+            if n > 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):                        # Using the power function from the function_tools.py file to check if the theorem is true or not
+                print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
+            if n <= 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):
+                print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
+            else:
+                print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
     except Exception as e:              # Exception handling for any exception
             print(f"\nError: {e}")  
 

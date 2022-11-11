@@ -49,29 +49,28 @@ def validate(dmy):                          # Validating the Input, took the lis
     # Checking if the month is in the list of months with 31 days
     if mnth in  ['January', 'March', 'May', 'July', 'August', 'October', 'December']:
         if int(dmy[0]) in range(1,32):      # Checking if the date is valid or not for the respective months
-            flg = True
+            return True
         else:
-            flg = False
+            return False
     elif mnth == 'February':                # Checking if the month is February
         if int(dmy[2])%4 == 0:              # Checking if the year is a leap year
             if int(dmy[0]) in range(1,30):  # Checking if the date is valid or not for a leap year february
-                flg = True
+                return True
             else:
-                flg = False
+                return False
         else:
             if int(dmy[0]) in range(1,29):  # Checking if the date is valid or not for a non-leap year february
-                flg = True
+                return True
             else:
-                flg = False
+                return False
     # Checking if the month is in the list of months with 30 days
     elif mnth in ['April', 'June', 'September', 'November']:
         if int(dmy[0]) in range(1,31):      # Checking if the date is valid or not for the respective months
-            flg = True
+            return True
         else:
-            flg = False
+            return False
     else:                                   # If the month is not in either of the list of months
-        flg = False
-    return flg
+        return False
                 
 
 def assign(dmyr):                           # Converting the date into a different format

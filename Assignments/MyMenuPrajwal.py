@@ -31,8 +31,10 @@ def functioncall(user):                 # Routing function
                 n = int(input("Enter the value for n: "))   # Getting the value of n from the user to feed into the factorial power series function
                 fc = facto_power_series(n)                  # Calling the factorial power series function and storing the result in a variable
                 output(fc)                                  # Displaying the result of the factorial power series function
-            except Exception as e:      # Exception handling for any exception
-                print(f"\nError: {e}")
+            except ValueError:          # Exception handling for incorrect input
+                print("\nError: Invalid Input!! Please enter a positive integer")
+            except RecursionError:      # Exception handling for recursion error
+                print("\nError: Recursion limit exceeded!! Please only enter small positive integer values")
         case '4':
             check_password()            # Calling the check password function if user chose the fourth option
         case '5':
@@ -90,8 +92,10 @@ def isFermat():                         # Function to check if Fermat's last the
                 print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
             else:
                 print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
-    except Exception as e:              # Exception handling for any exception
-            print(f"\nError: {e}")  
+    except ValueError:                  # Exception handling for incorrect input
+        print("\nError: Invalid Input!! Please enter a positive integer")
+    except RecursionError:              # Exception handling for recursion error
+        print("\nError: Recursion limit exceeded!! Please only enter small positive integer values")  
 
 def facto_power_series(n : float) -> float:                 # Function to calculate the factorial power series
     series_sum = ft.series(n)           # Using the series function from the function_tools.py file to calculate the factorial power series

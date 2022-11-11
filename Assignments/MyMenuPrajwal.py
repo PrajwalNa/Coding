@@ -86,22 +86,22 @@ def isFermat():                         # Function to check if Fermat's last the
         if a<=0 or b<=0 or c<=0 or n<=0:                    # Checking if any of the values are less than or equal to zero
             print("Please enter positive values only!")
         else:    
-            if n > 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):                        # Using the power function from the function_tools.py file to check if the theorem is true or not
+            if n > 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):                    # Using the power function from the function_tools.py file to check if the theorem is true or not
                 print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
-            if n <= 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):
+            elif n <= 2 and ft.power(a,n) + ft.power(b,n) != ft.power(c,n):
                 print(f"\nFor n = {n}, Left hand side != Right hand side: The theorem holds.")
             else:
                 print(f"\nFor n = {n}, Left hand side = Right hand side: The theorem holds")
     except ValueError:                  # Exception handling for incorrect input
         print("\nError: Invalid Input!! Please enter a positive integer")
     except RecursionError:              # Exception handling for recursion error
-        print("\nError: Recursion limit exceeded!! Please only enter small positive integer values")  
+        print("\nError: Recursion limit exceeded!! Please only enter small positive integer values (<995) for n")  
 
 def facto_power_series(n : float) -> float:                 # Function to calculate the factorial power series
     series_sum = ft.series(n)           # Using the series function from the function_tools.py file to calculate the factorial power series
     return series_sum                   # returing the sum of the factorial power series
 
-def output(fact):                       # Output function for factorial power series
+def output(fact : float):               # Output function for factorial power series
     print(f"\nThe sum of your series is: {fact}")
 
 def check_password():                   # Function to check if the password entered by the user is valid or not

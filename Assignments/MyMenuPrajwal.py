@@ -8,9 +8,10 @@ Instructor's name: Syed Tanbeer
 Menu Based Program for carrying out various functions
 """
 
-import function_tools as ft             # Importing the function_tools module as ft to use the functions defined in it
 import re                               # Importing regex module
 import sys                              # Importing sys module to use the exit function
+import function_tools as ft             # Importing the function_tools module as ft to use the functions defined in it
+
 
 def main():                             # Main function
     try:
@@ -52,27 +53,33 @@ def DrawShape():                        # Function to draw a shape based on the 
     choice = input("a - Draw a triangle\nb - Draw a rectangle\nEnter your choice: ")        # Getting the user's choice to draw a triangle or a rectangle
     match choice:                       # Matching the user's choice
         case 'a':                       # If user chose to draw a triangle
-            row = int(input("Enter the side of triangle: "))                                # Getting the side of the triangle from the user
-            print()                     # To print a blank line for aesthetic reasons
-            for i in range(row):
-                for j in range(i+1):
-                    if (j == 0 or j == i or i == row-1):                                    # Checking if the current position is the first or last position of the row or the last row
-                        print('*',end=" ")
-                    else:
-                        print(" ",end=" ")
-                print()                 # Printing a new line to pass control to the next row
+            try:
+                row = int(input("Enter the side of triangle: "))                            # Getting the side of the triangle from the user
+                print()                 # To print a blank line for aesthetic reasons
+                for i in range(row):
+                    for j in range(i+1):
+                        if (j == 0 or j == i or i == row-1):                                # Checking if the current position is the first or last position of the row or the last row
+                            print('*',end=" ")
+                        else:
+                            print(" ",end=" ")
+                    print()             # Printing a new line to pass control to the next row
+            except ValueError:          # Exception handling for incorrect input
+                print("\nError: Invalid Input!! Please enter a positive integer")
         case 'b':                       # If user chose to draw a rectangle
             # Getting the length and width of the rectangle from the user
-            row = int(input("Enter the width: "))
-            colum = int(input("Enter the length: "))
-            print()                     # To print a blank line for aesthetic reasons
-            for a in range(row):
-                for b in range(colum):
-                    if (a == 0 or a == row - 1 or b == 0 or b == colum - 1):                # Checking if the current position is the first or last position of the row or the last row
-                        print('*', end = '  ')
-                    else:
-                        print(' ', end = '  ')
-                print()                 # Printing a new line to pass control to the next row
+            try:
+                row = int(input("Enter the width: "))
+                colum = int(input("Enter the length: "))
+                print()                 # To print a blank line for aesthetic reasons
+                for a in range(row):
+                    for b in range(colum):
+                        if (a == 0 or a == row - 1 or b == 0 or b == colum - 1):            # Checking if the current position is the first or last position of the row or the last row
+                            print('*', end = '  ')
+                        else:
+                            print(' ', end = '  ')
+                    print()             # Printing a new line to pass control to the next row
+            except ValueError:          # Exception handling for incorrect input
+                print("\nError: Invalid Input!! Please enter a positive integer")
         case _:                         # Default case if user enters an invalid input
             print("Invalid choice")
     

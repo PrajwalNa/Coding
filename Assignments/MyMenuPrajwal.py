@@ -12,6 +12,7 @@ Most print functions in this program are using octal notation for ANSI escape se
 import re                               # Importing regex module
 import sys                              # Importing sys module to use the exit function
 import function_tools as ft             # Importing the function_tools module as ft to use the functions defined in it
+from time import sleep                  # Importing sleep function from time module to use in the exit process
 
 
 def main():                             # Main function
@@ -40,7 +41,13 @@ def functioncall(user):                 # Routing function
         case '4':
             check_password()            # Calling the check password function if user chose the fourth option
         case '5':
-            sys.exit("\n\033[1;92mThank you for using my menu program!\033[22;00m")              # Exiting the program using the in-built exit function if user chose the fifth option
+            temp = ""
+            for c in "Thank you for using my menu program!":
+                temp += c
+                print(f"\033[1;92m\r{temp}",end="")
+                sleep(0.04)
+            print("\033[22;00m")
+            sys.exit()                  # Exiting the program using the in-built exit function if user chose the fifth option
         case _:                         # Default case if user enters an invalid input
             print("\033[1;91mInvalid choice\033[22;00m")
 
@@ -53,7 +60,7 @@ def DrawShape():                        # Function to draw a shape based on the 
     print()                             # To print a blank line for aesthetic reasons
     # Getting the user's choice to draw a triangle or a rectangle
     choice = input("\033[1;96ma - Draw a triangle\nb - Draw a rectangle\033[22;00m\nEnter your choice: ")
-    match choice:                       # Matching the user's choice
+    match choice.lower():               # Matching the user's choice
         case 'a':                       # If user chose to draw a triangle
             try:
                 row = int(input("Enter the side of triangle: "))                            # Getting the side of the triangle from the user
@@ -70,8 +77,8 @@ def DrawShape():                        # Function to draw a shape based on the 
         case 'b':                       # If user chose to draw a rectangle
             # Getting the length and width of the rectangle from the user
             try:
-                row = int(input("Enter the width: "))
-                colum = int(input("Enter the length: "))
+                row = int(input("Enter the length: "))
+                colum = int(input("Enter the width: "))
                 print()                 # To print a blank line for aesthetic reasons
                 for a in range(row):
                     for b in range(colum):

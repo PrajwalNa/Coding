@@ -11,21 +11,20 @@ __name__ = "__dateconv__"                   # Defining the main function
 def dateconv():                             # Main Function
     try:
         while True:                         # Looping the program infinitely
-            userin = datein()               # Calling the input function
-            TorF = validate(userin)         # Validating the input
-            conv = assign(userin)           # Converting the Date, saving it in a tuple
-            printout(TorF, conv[0], conv[1], conv[2])
+            try:
+                userin = datein()           # Calling the input function
+                TorF = validate(userin)     # Validating the input
+                conv = assign(userin)       # Converting the Date, saving it in a tuple
+                printout(TorF, conv[0], conv[1], conv[2])
+            except IndexError:              # If the user enters a date in a wrong format
+                print("\033[91m!!Invalid Entry!!\033[00m\n")
     except KeyboardInterrupt:               # Handling the Ctrl+C; keyboard interrupt
         print(f"\n{'*'*20}Program Closed{'*'*20}")
 
 def datein():                               # User Input function to given instructions to the user on the format of input
-    try:
-        usr = input("Enter a date[dd/mm/yyyy]: ")
-        daymonyr = usr.split("/")           # Splitting the input into a list
-        return daymonyr                     # Returning the list
-    except IndexError:
-        print("!!Invalid Entry!!\nCtrl+C To Exit.")
-        return ['00', '00', '0000']         # Returning a list with invalid value
+    usr = input("Enter a date[dd/mm/yyyy]: ")
+    daymonyr = usr.split("/")               # Splitting the input into a list
+    return daymonyr                         # Returning the list
 
 def name(month):                            # Function to convert the month number into month name
     match month:
@@ -75,18 +74,24 @@ def validate(dmy):                          # Validating the Input, took the lis
 
 def assign(dmyr):                           # Converting the date into a different format
     # Assigning values of date month and year into respectuve variables
-    date = dmyr[0]
+    date = str(dmyr[0])
     month = name(dmyr[1])
-    year = dmyr[2]
+    year = str(dmyr[2])
     return date, month, year
 
 def printout(vld, d, m, y):                 # Output Function, takes the validation flag, date, month and year as arguments
     if vld == True:                         # Checking if the date is valid or not with the help of the validation flag
-        print("Date: "+d+"\nMonth: "+m+"\nYear: "+y+"\nCtrl+C To Exit.")
-        sleep(2.0)                          # Waiting for 2 seconds before restarting the program
+        print("Date in Converted Format: ")
+        temp = ""
+        for c in m+" "+d+", "+y:            # Printing the date in the required format
+            temp += c
+            print(f"\033[92m\r{temp}", end="")
+            sleep(0.06)
+        print("\033[00m")
+        print("\nCtrl+C to exit the program")
     else:
-        print("!!Invalid Entry!!\nCtrl+C To Exit.")
-        sleep(2.0)
+        print("\033[91m!!Invalid Entry!!\033[00m\nCtrl+C To Exit.")
+        sleep(1.0)
 
 if __name__ == "__dateconv__":              # Source Control
     dateconv()                              # Calling the main function

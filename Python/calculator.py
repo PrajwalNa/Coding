@@ -25,10 +25,10 @@ def main():
 def inp():
     # using argparse to take the input from the user
     parser = argparse.ArgumentParser(description="A basic calculator program. The available operators are '+', '-', '*', '/', '**', '%")
-    parser.add_argument("-n", "--num", type = float, dest = "numbers", nargs = 2, help = "Argument to store enter two numbers", required = True)
+    parser.add_argument("-n", "--num", type = float, dest = "number", nargs = 2, help = "Argument to store enter two numbers", required = True)
     parser.add_argument("-o", "--operator", type = str, dest = "operator", help = "Argument to store the operator", required = True)
     args = parser.parse_args()      # Parsing the arguments
-    a, b = args.numbers             # Storing the numbers in a and b
+    a, b = args.number              # Storing the numbers in a and b
     ops = args.operator             # Storing the operator in ops
     return a, b, ops
 

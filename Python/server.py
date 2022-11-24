@@ -30,8 +30,8 @@ def serverConec():
     cli.send('Thank you for connecting'.encode())       # Send a thank you message to the client.
     protocol = cli.proto                                # Extracting the protocol property from the connection object
     connection = str(cli)                               # Converting the connection object to a string
-    src = re.findall("raddr=\('(\d+\.\d+\.\d+\.\d+)',\s(\d+)\)", connection)                                                # Extracting the source IP and port from the connection string
-    dest = re.findall("laddr=\('(\d+\.\d+\.\d+\.\d+)',\s(\d+)\)", connection)                                               # Extracting the destination IP and port from the connection string
+    src = re.findall(r"raddr=\('(\d+\.\d+\.\d+\.\d+)',\s(\d+)\)", connection)                                                # Extracting the source IP and port from the connection string
+    dest = re.findall(r"laddr=\('(\d+\.\d+\.\d+\.\d+)',\s(\d+)\)", connection)                                               # Extracting the destination IP and port from the connection string
     try:
         print(cli.recv(1234).decode())                  # Print the data received from the client
     except:

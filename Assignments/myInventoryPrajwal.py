@@ -91,7 +91,7 @@ def Route(choice : int):
             op8()
         case 9:                     # Total Price of each item in the Inventory
             op9()
-        case 10:                    # Exit, using a return string to print the exit message one character per 0.02 seconds
+        case 10:                    # Exit, using a carriage return to print the exit message one character per 0.02 seconds
             temp = ""
             for c in "Thank you for using the Inventory Database System":
                 temp += c

@@ -44,7 +44,7 @@ def functioncall(user):                 # Routing function
             temp = ""
             for c in "Thank you for using my menu program!":
                 temp += c
-                print(f"\033[1;92m\r{temp}",end="")         # Using raw string to print the exit message one character at a time
+                print(f"\033[1;92m\r{temp}",end="")         # Using carriage return to print the exit message one character at a time
                 sleep(0.04)
             print("\033[22;00m")
             sys.exit()                  # Exiting the program using the in-built exit function if user chose the fifth option

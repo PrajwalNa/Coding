@@ -7,10 +7,9 @@ Submission date: 27 November 2022
 Instructor's name: Syed Tanbeer
 ------------------------------------------------------------------------------------------------------------------------
 Inventory Management System (IMS), to demonstrate the use of dictionaries and file handling
-The code checks if the log file is empty, if it is, it writes a simple comment into it
-If the log file is empty, i.e., its the first run, the program will also create a csv file with the inventory data
-Please ignore the "File saved successfully" message on the first run with an  empty log file
-If the log file is not empty, the program will read the data from the csv file and update the dictionary accordingly
+The code checks if the inventory.csv file exists, if not, it creates a new file and writes the dictionary to it
+Please ignore the "File saved successfully" message on the first run with as there is no file to read from
+If the inventory.csv exists, the program will read the data from the csv file and update the dictionary accordingly
 ------------------------------------------------------------------------------------------------------------------------
 ANSI codes used for colored output: 
 033[91m - Red
@@ -25,6 +24,7 @@ import re                           # Importing the regular expression module
 import sys                          # Importing the sys module to exit the program
 import time                         # Importing the time module
 import csv                          # Importing the csv module to read and write to the csv file
+from os.path import exists
 
 # Initialize the inventory dictionary
 inventory = {
@@ -171,10 +171,10 @@ def op3():
 def op4():
     print(f"\n\033[96m{'*'*30} Update an item in the Inventory {'*'*30}\033[0m")
     itemcode = input("Enter the item code: ").upper()
-    print("\033[94mIf you don't want to change either the Name or Category of the Item leave the Input Empty.\
-        \nThis should not be done with price and quantity, they will need you to re-enter the value even if you don't want to change it\033[0m")
     # Convert the item code to uppercase to match the dictionary keys
     if itemcode in inventory:       # Check if the item code to be updated exists in the dictionary
+        print("\033[94mIf you don't want to change either the Name or Category of the Item leave the Input Empty.\
+        \nThis should not be done with price and quantity, you will need to re-enter the value even if you don't want to change it\033[0m")
         try:                        # Try to update the item
             itemname = input("Enter the name: ").capitalize()
             if itemname == "":      # If the user does not want to change the name
@@ -350,17 +350,10 @@ def write(consent):
     
 # Function to check for previously created inventory file, if it is created it will update the dictionary from the file
 def log_check():
-    log = open("log.txt", "a")      # Creating/opening the log file in append mode
-    log.close()                     # Closing the log file
-    lg = open("log.txt", "r")       # Opening the log file in read mode
-    check = lg.readline()           # Reading the line from the log file
-    lg.close()                      # Closing the log file
-    if check == "":                 # Check if the log file is empty, if yes, write the header to the log file
-        log = open("log.txt", "w")
-        log.write("File to confirm the first run of Inventory Management System\n")
-        log.close()
+    check = exists("inventory.csv") # Check if the file exists
+    if not check:                   # Check if the csv file does not exist
         write("Y")                  # Write the dictionary to the csv file
-    else:                           # If the log file is not empty, read the inventory file
+    else:                           # If the csv file exists, read from the inventory file
         # Creating csv dictorionary reader object
         read = csv.DictReader(open("inventory.csv"))
         # Unpacking the csv file into the dictionary with itereating over the rows

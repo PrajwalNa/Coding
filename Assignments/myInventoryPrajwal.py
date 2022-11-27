@@ -5,7 +5,13 @@ Name: Prajwal Nautiyal
 Sheridan Student Number: 991662442
 Submission date: 27 November 2022
 Instructor's name: Syed Tanbeer
+------------------------------------------------------------------------------------------------------------------------
 Inventory Management System (IMS), to demonstrate the use of dictionaries and file handling
+The code checks if the log file is empty, if it is, it writes a simple comment into it
+If the log file is empty, i.e., its the first run, the program will also create a csv file with the inventory data
+Please ignore the "File saved successfully" message on the first run with an  empty log file
+If the log file is not empty, the program will read the data from the csv file and update the dictionary accordingly
+------------------------------------------------------------------------------------------------------------------------
 ANSI codes used for colored output: 
 033[91m - Red
 033[92m - Green
@@ -135,9 +141,9 @@ def op3():
     itemcode = input("Enter the item code: ").upper()                           # Convert the item code to uppercase to match the dictionary keys
     # Check if the item code is in the correct format using regex
     if re.match(r"^(F|V|D){1}[0-9]{2,3}$", itemcode):
-        if itemcode in inventory:       # Check if the item code exists in the dictionary
+        if itemcode in inventory:   # Check if the item code exists in the dictionary
             print("\033[94mItem already exists\033[0m")
-        else:                           # If the item code does not exist in the dictionary
+        else:                       # If the item code does not exist in the dictionary
             try:
                 itemname = input("Enter the item name: ").capitalize()
                 category = input("Enter the item category: ").capitalize()      # Capitalising the first letter of category to match the dictionary format
@@ -154,7 +160,7 @@ def op3():
                         inventory[itemcode] = [itemname, category, price, quantity]
                         print("\033[92mItem added successfully\033[0m\n")
                         consent = input("\033[93mDo you want to save the changes in the file? (Y/N): \033[0m")
-                        write(consent)      # Call the function to write the data to the csv file
+                        write(consent)                                          # Call the function to write the data to the csv file
             except ValueError:      # If the user enters a non-integer value for quantity or a non-float value for price
                 print("\033[91mIllegal value entered!!\033[0m")
     else:                           # If the item code is not in the correct format
@@ -165,11 +171,17 @@ def op3():
 def op4():
     print(f"\n\033[96m{'*'*30} Update an item in the Inventory {'*'*30}\033[0m")
     itemcode = input("Enter the item code: ").upper()
+    print("\033[94mIf you don't want to change either the Name or Category of the Item leave the Input Empty.\
+        \nThis should not be done with price and quantity, they will need you to re-enter the value even if you don't want to change it\033[0m")
     # Convert the item code to uppercase to match the dictionary keys
     if itemcode in inventory:       # Check if the item code to be updated exists in the dictionary
         try:                        # Try to update the item
             itemname = input("Enter the name: ").capitalize()
+            if itemname == "":      # If the user does not want to change the name
+                itemname = inventory[itemcode][0]                               # Set the name to the current name
             category = input("Enter the category: ").capitalize()               # Capitalising the first letter of category to match the dictionary format
+            if category == "":      # If the user does not want to change the category
+                category = inventory[itemcode][1]                               # Set the category to the current category
             # Check if the category is valid
             while not validate(category):
                 print("\033[91mInvalid category\033[0m")
@@ -184,7 +196,7 @@ def op4():
                     # Open the file in write mode, using 'r' to avoid escaping the backslash in the file path
                     print("\033[92mItem updated successfully\033[0m\n")
                     consent = input("\033[93mDo you want to save the changes in the file? (Y/N): \033[0m")
-                    write(consent)          # Call the function to write the data to the csv file
+                    write(consent)  # Call the function to write the data to the csv file
         except ValueError:          # If the user enters a non-integer value for quantity or a non-float value for price
             print("\033[91mIllegal value entered!!\033[0m")
     else:                           # If the item code to be updated does not exist in the dictionary
@@ -198,7 +210,7 @@ def op5():
     if itemcode in inventory:
         del inventory[itemcode]
         print("\033[92mItem deleted successfully\033[0m\n")
-        write("Y")                     # Call the function to write the data to the csv file
+        write("Y")                  # Call the function to write the data to the csv file
     else:
         print("\033[91mItem not found\033[0m")
 
@@ -306,24 +318,28 @@ def validate(category):
 
 # Function to make sure the user entered a category coincinding with the item code
 def match(itemcode, category):
+    # Checking if the item code starts with F and the category is not Fruit
     if itemcode.startswith("F") and category != "Fruit":
         print("\033[91mItem code and category do not match!!\033[0m")
         return False
+    # Checking if the item code starts with D and the category is not Dairy
     elif itemcode.startswith("D") and category != "Dairy":
         print("\033[91mItem code and category do not match!!\033[0m")
         return False
+    # Checking if the item code starts with V and the category is not Vegetable
     elif itemcode.startswith("V") and category != "Vegetable":
         print("\033[91mItem code and category do not match!!\033[0m")
         return False
+    # If the item code and category match, return True
     else:
         return True
 
 # Function to store the dictionary in a file
 def write(consent):
     if consent.upper() == "Y":
-        with open("inventory.csv", mode='w') as fil:                 # Open the csv file in write mode
+        with open("inventory.csv", mode='w') as fil:                                            # Open the csv file in write mode
             fields = ["Item Code", "Item Name", "Category", "Price (CA$)", "Quantity"]          # List of fields
-            csvW = csv.DictWriter(fil, fieldnames=fields)                                       # Create a csv writer object
+            csvW = csv.DictWriter(fil, fieldnames=fields)                                       # Create a csv dictionary writer object
             csvW.writeheader()                                                                  # Write the header
             # Loop through the dictionary and write the values in the csv file
             csvW.writerows([{"Item Code": k, "Item Name": v[0], "Category": v[1], "Price (CA$)": v[2], "Quantity": v[3]} for k, v in inventory.items()])
@@ -334,11 +350,11 @@ def write(consent):
     
 # Function to check for previously created inventory file, if it is created it will update the dictionary from the file
 def log_check():
-    log = open("log.txt", "a")      # creating/opening the log file in append mode
-    log.close()                     # closing the log file
-    lg = open("log.txt", "r")       # opening the log file in read mode
-    check = lg.readline()           # reading the line from the log file
-    lg.close()                      # closing the log file
+    log = open("log.txt", "a")      # Creating/opening the log file in append mode
+    log.close()                     # Closing the log file
+    lg = open("log.txt", "r")       # Opening the log file in read mode
+    check = lg.readline()           # Reading the line from the log file
+    lg.close()                      # Closing the log file
     if check == "":                 # Check if the log file is empty, if yes, write the header to the log file
         log = open("log.txt", "w")
         log.write("File to confirm the first run of Inventory Management System\n")

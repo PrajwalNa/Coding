@@ -364,9 +364,9 @@ def log_check():
         # Unpacking the csv file into the dictionary with itereating over the rows
         newinpt = {rows["Item Code"]: [rows["Item Name"], rows["Category"], rows["Price (CA$)"], rows["Quantity"]] for rows in read}
         inventory.update(newinpt)   # Updating the dictionary with the new values
-        # Deleting the dictionary keys that are not in the csv file
-        for key in inventory.keys():
-            if key not in newinpt.keys():
+        # Deleting the dictionary keys that are not in the csv file, using a shallow copy of the dictionary to avoid runtime error
+        for key in inventory.copy():
+            if key not in newinpt:
                 del inventory[key]
             
 # Calling the main function

@@ -210,7 +210,8 @@ def op5():
     if itemcode in inventory:
         del inventory[itemcode]
         print("\033[92mItem deleted successfully\033[0m\n")
-        write("Y")                  # Call the function to write the data to the csv file
+        cnst = input("\033[93mDo you want to save the changes in the file? (Y/N): \033[0m").upper()
+        write(cnst)                     # Call the function to write the data to the csv file
     else:
         print("\033[91mItem not found\033[0m")
 
@@ -335,18 +336,22 @@ def match(itemcode, category):
         return True
 
 # Function to store the dictionary in a file
-def write(consent):
-    if consent.upper() == "Y":
-        with open("inventory.csv", mode='w') as fil:                                            # Open the csv file in write mode
-            fields = ["Item Code", "Item Name", "Category", "Price (CA$)", "Quantity"]          # List of fields
-            csvW = csv.DictWriter(fil, fieldnames=fields)                                       # Create a csv dictionary writer object
-            csvW.writeheader()                                                                  # Write the header
-            # Loop through the dictionary and write the values in the csv file
-            csvW.writerows([{"Item Code": k, "Item Name": v[0], "Category": v[1], "Price (CA$)": v[2], "Quantity": v[3]} for k, v in inventory.items()])
-        fil.close()                                                                             # Close the file
-        print("\033[92mFile saved successfully!\033[0m")
-    else:
-        print("\033[94mChanges not saved in the file!!\033[0m")
+def write(consent):             
+    match consent.upper():          # Checking if the user wants to save the dictionary using match statement
+        case "Y":
+            with open("inventory.csv", mode='w') as fil:                                            # Open the csv file in write mode
+                fields = ["Item Code", "Item Name", "Category", "Price (CA$)", "Quantity"]          # List of fields
+                csvW = csv.DictWriter(fil, fieldnames=fields)                                       # Create a csv dictionary writer object
+                csvW.writeheader()                                                                  # Write the header
+                # Loop through the dictionary and write the values in the csv file
+                csvW.writerows([{"Item Code": k, "Item Name": v[0], "Category": v[1], "Price (CA$)": v[2], "Quantity": v[3]} for k, v in inventory.items()])
+            fil.close()                                                                             # Close the file
+            print("\033[92mFile saved successfully!\033[0m")
+        case "N":
+            print("\033[94mChanges not saved in the file!!\033[0m")
+        case _:                     # If the user enters anything other than Y or N, print the error message
+            print("\033[91mPlease Choose Either 'Y' or 'N'\033[0m")
+            write(input("\033[93mDo you want to save the changes in the file? (Y/N): \033[0m"))
     
 # Function to check for previously created inventory file, if it is created it will update the dictionary from the file
 def log_check():
@@ -359,7 +364,11 @@ def log_check():
         # Unpacking the csv file into the dictionary with itereating over the rows
         newinpt = {rows["Item Code"]: [rows["Item Name"], rows["Category"], rows["Price (CA$)"], rows["Quantity"]] for rows in read}
         inventory.update(newinpt)   # Updating the dictionary with the new values
-
+        # Deleting the dictionary keys that are not in the csv file
+        for key in inventory.keys():
+            if key not in newinpt.keys():
+                del inventory[key]
+            
 # Calling the main function
 if __name__ == "__main__":
     main()

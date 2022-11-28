@@ -368,6 +368,10 @@ def log_check():
         for key in inventory.copy():
             if key not in newinpt:
                 del inventory[key]
+        # Converting the values to their respective data types
+        for key in inventory:
+            inventory[key][2] = float(inventory[key][2])
+            inventory[key][3] = int(inventory[key][3])
             
 # Calling the main function
 if __name__ == "__main__":

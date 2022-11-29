@@ -339,13 +339,12 @@ def match(itemcode, category):
 def write(consent):             
     match consent.upper():          # Checking if the user wants to save the dictionary using match statement
         case "Y":
-            with open("inventory.csv", mode='w') as fil:                                            # Open the csv file in write mode
+            with open("inventory.csv", mode='w') as fil:                                            # Open the csv file in write mode, the with loop will automatically close the file
                 fields = ["Item Code", "Item Name", "Category", "Price (CA$)", "Quantity"]          # List of fields
                 csvW = csv.DictWriter(fil, fieldnames=fields)                                       # Create a csv dictionary writer object
                 csvW.writeheader()                                                                  # Write the header
                 # Loop through the dictionary and write the values in the csv file
-                csvW.writerows([{"Item Code": k, "Item Name": v[0], "Category": v[1], "Price (CA$)": v[2], "Quantity": v[3]} for k, v in inventory.items()])
-            fil.close()                                                                             # Close the file
+                csvW.writerows([{"Item Code": k, "Item Name": v[0], "Category": v[1], "Price (CA$)": v[2], "Quantity": v[3]} for k, v in inventory.items()])                                                                            # Close the file
             print("\033[92mFile saved successfully!\033[0m")
         case "N":
             print("\033[94mChanges not saved in the file!!\033[0m")

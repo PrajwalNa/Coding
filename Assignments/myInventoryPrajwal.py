@@ -2,7 +2,6 @@
 Assignment No.: 3
 Course: PROG12974
 Name: Prajwal Nautiyal
-Sheridan Student Number: 991662442
 Submission date: 27 November 2022
 Instructor's name: Syed Tanbeer
 ------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 """
 Quiz/Lab: 2
 Name: Prajwal Nautiyal
-Sheridan Student ID: 991662442
 Set: A
 Submission Date: 11 October 2022
 Instructor's Name: Syed Tanbeer
